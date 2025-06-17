@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>ENCARTES API</title>
+  <link rel="icon" href="static/mateus.logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    #grupo-mateus-logo {
+      max-width: 220px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 15px 0 10px;
+      font-size: 1.4rem;
+      color: #333;
+    }
+    select {
+      width: 250px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: #0693e3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #047acb;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://ri.grupomateus.com.br/wp-content/themes/mziq_grupo_mateus/img/logo.png" alt="Logo Grupo Mateus" id="grupo-mateus-logo">
+
+  <h1>Selecione a Loja</h1>
+  <select id="loja-select">
+    <option value="Todos">Todos</option>
+    <option value="Assaí">Assaí</option>
+    <option value="Atacadão">Atacadão</option>
+    <option value="Cometa Supermercados">Cometa Supermercados</option>
+    <option value="Frangolândia Supermercados">Frangolândia Supermercados</option>
+    <option value="Novo Atacarejo">Novo Atacarejo</option>
+    <option value="GBarbosa (Grupo Cencosud)">GBarbosa (Grupo Cencosud)</option>
+  </select>
+
+  <h1>Selecione o Estado</h1>
+  <select id="estado-select">
+    <option value="Todos">Todos</option>
+    <option value="Maranhão">Maranhão</option>
+    <option value="Piauí">Piauí</option>
+    <option value="Ceará">Ceará</option>
+    <option value="Pará">Pará</option>
+    <option value="Pernambuco">Pernambuco</option>
+    <option value="Alagoas">Alagoas</option>
+    <option value="Bahia">Bahia</option>
+    <option value="Sergipe">Sergipe</option>
+    <option value="Paraíba">Paraíba</option>
+  </select>
+
+  <button id="clique">Baixar</button>
+  
+
+    <script>
+        // *** IMPORTANTE: SUBSTITUA ESTA URL PELA URL DO SEU SERVIÇO RENDER APÓS O DEPLOY! ***
+        // Exemplo: const BACKEND_URL = 'https://seu-nome-do-app-aqui.onrender.com';
+        const BACKEND_URL = 'https://SUA_URL_DO_RENDER_AQUI'; // <--- VOCÊ PRECISA MUDAR ISTO!
+
+        document.getElementById("clique").addEventListener("click", async function () {
+            const lojaSelect = document.getElementById("loja-select");
+            const estadoSelect = document.getElementById("estado-select");
+            const statusMessage = document.getElementById("status-message");
+            const loader = document.getElementById("loader");
+            const button = document.getElementById("clique");
+
+            const loja = lojaSelect.value;
+            const estado = estadoSelect.value;
+
+            statusMessage.style.display = 'none';
+            statusMessage.className = ''; 
+
+            button.disabled = true;
+            loader.style.display = 'inline-block'; 
+
+            try {
+                // A requisição agora vai para a URL do seu serviço Render
+                const response = await fetch(`${BACKEND_URL}'https://encartes-api-service.onrender.com/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ loja: loja, estado: estado })
+                });
+
+                const data = await response.json(); 
+
+                if (response.ok) { 
+                    statusMessage.classList.add('success');
+                    statusMessage.innerHTML = data.message || 'Pedido de download enviado com sucesso!';
+                } else { 
+                    statusMessage.classList.add('error');
+                    statusMessage.innerHTML = `Erro: ${data.error || 'Ocorreu um erro desconhecido no servidor.'}`;
+                }
+            } catch (error) {
+                statusMessage.classList.add('error');
+                statusMessage.innerHTML = `Erro de conexão: Não foi possível alcançar o servidor. Verifique se o servidor está a correr e a sua ligação à internet.`;
+                console.error('Erro ao enviar requisição:', error);
+            } finally {
+                statusMessage.style.display = 'block'; 
+                button.disabled = false; 
+                loader.style.display = 'none'; 
+            }
+        });
+    </script>
+
+</body>
+</html>

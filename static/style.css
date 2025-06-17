@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    }
+
+#grupo-mateus-logo {
+    max-width: 200px;
+    margin-bottom: 20px;
+    }
+
+h1 {
+    margin-bottom: 10px;
+}
+
+#mercado-select {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 10px 0;
+    width: 200px;
+}
+
+#loja-select {
+    padding: 10px 15px;
+    font-size: 16px;
+    margin: 10px 0;
+    width: 200px;
+}
+
+#clique {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 75px;
+    font-style: italic;
+}
+
+#clique:hover {
+    background-color: #0056b3;
+    font-style: italic;
+}

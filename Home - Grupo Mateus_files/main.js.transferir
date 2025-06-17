@@ -1,0 +1,180 @@
+$(document).ready(function () {
+    // BANNER HOME
+    if ($(".pageHome__banner__slide").length > 0) {
+        $(".pageHome__banner__slide").slick({
+            slidesToShow: 1,
+            arrows: true,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            nextArrow: $(".arrow.right"),
+            prevArrow: $(".arrow.left"),
+        });
+    }
+    // QUICK ACCESS
+    if ($(".pageHome__quickaccess__slide").length > 0) {
+        $(".pageHome__quickaccess__slide").slick({
+            slidesToShow: 5,
+            arrows: false,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2500,
+            responsive: [
+                {
+                    breakpoint: 1025,
+                    settings: {
+                        slidesToShow: 3,
+                    },
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                    },
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                    },
+                },
+            ],
+        });
+    }
+
+    // MOBILE MENU
+    $("header .primary-menu").append(
+        '<div class="primary-menu__close js-trigger-menu_close"> <div></div> <div></div> </div>'
+    );
+    $(".js-trigger-menu").click(function () {
+        $(".primary-menu").toggleClass("active");
+    });
+    $(".js-trigger-menu_close").click(function () {
+        $(".primary-menu").toggleClass("active");
+    });
+
+    // ACCORDION
+    if ($(".accordion__item__header").length > 0) {
+        $(".accordion__item__header").click(function () {
+            $(this).toggleClass("active");
+            $(this).next("div").slideToggle(200);
+        });
+    }
+
+    // CURRICULO
+    $(".toggleResume").on("click", function () {
+        $(this).toggleClass("active");
+        $(this).parents("tr").next(".curriculo:first").toggle();
+    });
+
+    // SITEMAP
+    $(".js-trigger-sitemap, .js-shutdown-sitemap").click(function (e) {
+        e.preventDefault();
+        var $this = this;
+
+        $($this).toggleClass("active");
+
+        $(".js-trigger-target").slideToggle(350, function () {
+            $("html, body").animate({
+                scrollTop: $(document).height() - $(window).height(),
+            });
+        });
+    });
+
+    // STOCKINFO - GLOBAL
+    if (document.querySelector("footer .quotations")) {
+        var MZStockInfo = new MZIQ_StockInfo();
+        var langCodeFormatted = lang.split("-")[0];
+        var decimalConfig = {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        };
+
+        var decimalConfigVol = {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        };
+
+        var options = {
+            language: langCodeFormatted,
+            stockinfoId: stockInfoId,
+            template: {
+                type: "raw",
+            },
+            rawInit: function (data) {
+                var tickers = data.tickers.concat(data.indexes);
+                var TICKER = tickers[0];
+                var IBOV = tickers[1];
+
+                var $stockSection = $("footer .quotations");
+
+                var date = TICKER.info.date.substr(-5).replace("-", "/");
+                var time = TICKER.info.time.substr(0, 5);
+                var fullTime = date + " " + time + " delay 15 min.";
+                $(".quotes__update span").html(fullTime);
+
+                $stockSection.find(".TICKER.name").html(TICKER.ticker);
+                $stockSection
+                    .find(".TICKER.price")
+                    .html("R$ " + TICKER.info.price.toLocaleString(lang));
+                $stockSection
+                    .find(".TICKER.variation")
+                    .html(
+                        TICKER.info.var.toLocaleString(lang, decimalConfig) +
+                        "%"
+                    );
+                if (TICKER.info.var > 0) {
+                    $stockSection.find(".TICKER.variation").addClass("up");
+                } else {
+                    $stockSection.find(".TICKER.variation").addClass("down");
+                }
+
+                $stockSection.find(".IBOV.name").html(IBOV.ticker);
+                $stockSection
+                    .find(".IBOV.price")
+                    .html(IBOV.info.price.toLocaleString(lang));
+                $stockSection
+                    .find(".IBOV.variation")
+                    .html(
+                        IBOV.info.var.toLocaleString(lang, decimalConfig) + "%"
+                    );
+                if (IBOV.info.var > 0) {
+                    $stockSection.find(".IBOV.variation").addClass("up");
+                } else {
+                    $stockSection.find(".IBOV.variation").addClass("down");
+                }
+            },
+        };
+        MZStockInfo.initialize(options);
+    }
+
+    // MANDAMENTOS
+    /*--------------------------------------------------------------
+    ## Abre/Fecha modal de busca
+    --------------------------------------------------------------*/
+    $(".js-trigger-search").click(function (e) {
+        e.preventDefault();
+        $(".js-target-search").fadeToggle("linear");
+        $('.js-target-search input').focus();
+    });
+
+    $(".js-shutdown-search").click(function () {
+        $(".js-target-search").removeClass("active").fadeToggle("linear");
+    });
+
+    /*--------------------------------------------------------------
+    ## Remove hash# do href (href="#")
+    --------------------------------------------------------------*/
+    $("nav a[href='#']").removeAttr("href");
+
+    /*--------------------------------------------------------------
+    ## Remove clique da página "mãe" das internas
+    --------------------------------------------------------------*/
+    $("#breadcrumbs a.bread-parent").attr("href", "javascript:void(0)");
+
+    function setFooterFixed() {
+        $('.footer').attr('style', 'position: fixed!important; bottom: 0px;width: 100%;');
+        $("body:not(.home)").css("padding-bottom", $(".footer").height() + 80);
+    }
+    setFooterFixed();
+});
