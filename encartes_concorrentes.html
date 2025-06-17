@@ -83,20 +83,5 @@
   </select>
 
   <button id="clique">Baixar</button>
-  
-
-    <script>
-    const { spawn } = require('child_process');
-    const pythonProcess = spawn('python', ['centaurus/models/assai.py', 'arg1', 'arg2']);
-    
-    pythonProcess.stdout.on('data', (data) => {
-      console.log(`Output from Python: ${data}`);
-     });
-
-     pythonProcess.stderr.on('data', (data) => {
-       console.error(`Error from Python: ${data}`);
-     });
-    </script>
-
 </body>
 </html>
