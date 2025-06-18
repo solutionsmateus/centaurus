@@ -14,5 +14,14 @@ SCRIPTS = {
 }
 
 
-def read_lojas():
+def read_files():
+    set.add(SCRIPTS)
+    for i in SCRIPTS:
+        i(len(SCRIPTS))
+    set.add(i)
+    print(".")
+    
+    #Add js file to read and capture command in python scipts.
+    #Read element on HTML with JS FIle
+    #Add feature to capture if else paramenters of all stores
     

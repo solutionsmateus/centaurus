@@ -29,10 +29,9 @@ wait = WebDriverWait(driver, 20)
 
 def encontrar_data():
     #"h6 - TEXT LOCATION OF DATES IN PAGE"
-    
     try:
         enc_data = WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH, '//h6[contains(TEXT)]'))
+            EC.presence_of_all_elements_located((By.XPATH, '//h6[contains("TEXT")]'))
         )
     except:
         return "sem_data"

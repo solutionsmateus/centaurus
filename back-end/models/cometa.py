@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 BASE_URL = "https://cometasupermercados.com.br/ofertas/"
 ENCARTE_DIR = Path.home() / "Desktop/Encartes-Concorrentes/Cometa-Supermercados"
 ENCARTE_DIR.mkdir(parents=True, exist_ok=True)
+driver = webdriver
 
 def iniciar_driver():
     options = webdriver.ChromeOptions()
@@ -24,7 +25,7 @@ def iniciar_driver():
 def encontrar_data():
     try:
         enc_data = WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@class, "ofertas-tab-validade")]'))
+            EC.presence_of_all_elements_located((By.XPATH, '//div[contains(@class, "jet-listing-dynamic-field__content")]'))
         )
     except:
         return "sem_data"

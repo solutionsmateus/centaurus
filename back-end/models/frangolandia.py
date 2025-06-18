@@ -27,7 +27,7 @@ def encontrar_data():
     #span - elementor-button-text"
     try:
         enc_data = WebDriverWait(driver, 10).until(
-            EC.presence_of_all_elements_located((By.XPATH, '//span[contains(@class, "elementor-button-text")]'))
+            EC.presence_of_all_elements_located(By.XPATH, '//span[contains(@class, "elementor-button-text")]')
         )
     except:
         return "sem_data"
