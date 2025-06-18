@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
+from selenium.webdriver.chrome.service import Service
 import re
 
 LOJAS_ESTADOS = {
