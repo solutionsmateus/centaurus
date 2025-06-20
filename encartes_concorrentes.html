@@ -1,92 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>ENCARTES API</title>
-  <link rel="icon" href="static/mateus.logo.png">
-  <script src="static/script.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f4f4f4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-    #grupo-mateus-logo {
-      max-width: 220px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      margin: 15px 0 10px;
-      font-size: 1.4rem;
-      color: #333;
-    }
-    select {
-      width: 250px;
-      padding: 10px;
-      margin-bottom: 20px;
-      font-size: 1rem;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      background-color: #fff;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 1.1rem;
-      background-color: #0693e3;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    button:hover {
-      background-color: #047acb;
-    }
-  </style>
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encartes Concorrentes</title>
+    </head>
 <body>
+    <h1>Seletor de Encartes</h1>
 
-  <img src="https://ri.grupomateus.com.br/wp-content/themes/mziq_grupo_mateus/img/logo.png" alt="Logo Grupo Mateus" id="grupo-mateus-logo">
+    <label for="loja-select">Selecione a Loja:</label>
+    <select id="loja-select">
+        <option value="">Selecione...</option>
+        <option value="Assaí">Assaí</option>
+        <option value="Atacadão">Atacadão</option>
+        <option value="Cometa Supermercados">Cometa Supermercados</option>
+        <option value="Frangolândia Supermercados">Frangolândia Supermercados</option>
+        <option value="Novo Atacarejo">Novo Atacarejo</option>
+        <option value="GBarbosa (Grupo Cencosud)">GBarbosa (Grupo Cencosud)</option>
+    </select>
 
-  <h1>Selecione a Loja</h1>
-  <select id="loja-select">
-    <option value="Todos">Todos</option>
-    <option value="Assaí">Assaí</option>
-    <option value="Atacadão">Atacadão</option>
-    <option value="Cometa Supermercados">Cometa Supermercados</option>
-    <option value="Frangolândia Supermercados">Frangolândia Supermercados</option>
-    <option value="Novo Atacarejo">Novo Atacarejo</option>
-    <option value="GBarbosa (Grupo Cencosud)">GBarbosa (Grupo Cencosud)</option>
-  </select>
+    <button id="BaixarButão" type="button">Baixar Encartes</button>
+    
+    <div id="download-links-container"></div>
 
-  <!-- 
-  <h1>Selecione o Estado</h1>
-  <select id="estado-select">
-    <option value="Todos">Todos</option>
-    <option value="Maranhão">Maranhão</option>
-    <option value="Piauí">Piauí</option>
-    <option value="Ceará">Ceará</option>
-    <option value="Pará">Pará</option>
-    <option value="Pernambuco">Pernambuco</option>
-    <option value="Alagoas">Alagoas</option>
-    <option value="Bahia">Bahia</option>
-    <option value="Sergipe">Sergipe</option>
-    <option value="Paraíba">Paraíba</option>
-  </select>
-    !-->
+    <script src="script.js"></script>
 
-  <button onclick="downloadReport();" id="BaixarButão" type="submit">Baixar</button>
-  <div id="download-links-container"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const baixarBotao = document.getElementById('BaixarButão');
+            const lojaSelect = document.getElementById('loja-select');
+
+            if (baixarBotao && lojaSelect) {
+                baixarBotao.addEventListener('click', () => {
+                    const selectedLoja = lojaSelect.value;
+                    if (selectedLoja) {
+                        executeScript(selectedLoja);
+                    } else {
+                        alert("Por favor, selecione uma loja primeiro.");
+                    }
+                });
+            } else {
+                console.error("Elementos HTML (botão ou seletor de loja) não encontrados. Verifique IDs.");
+            }
+        });
+    </script>
 </body>
 </html>
