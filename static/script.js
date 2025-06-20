@@ -1,7 +1,8 @@
 function downloadReport() {
-    const loja = document.getElementById("loja-select").value;
-    
-    fetch("/executar_script", {
+    const loja = document.getElementById("loja-select").value
+    path_execute = "centaurus/back-end/app.py"
+
+    fetch(path_execute("/executarscript"), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
