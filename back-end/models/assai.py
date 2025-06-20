@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from selenium.webdriver.chrome.service import Service
 import re
+import sys
 
 LOJAS_ESTADOS = {
     "Maranhão": "Assaí Angelim",
@@ -29,6 +30,11 @@ options = webdriver.ChromeOptions()
 options.add_argument("--start-maximized")
 driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 30)
+
+def main():
+    estado = sys.argv[1] if len(sys.argv) > 1 else None
+    print(f"Executando script para o estado: {estado}")
+
 
 def encontrar_data():
     try:
@@ -137,3 +143,6 @@ except Exception as e:
 
 finally:
     driver.quit()
+
+if __name__ == "__main__":
+    main()

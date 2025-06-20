@@ -1,34 +1,45 @@
-import flask
 from selenium import webdriver
+from flask import Flask, render_template, request, jsonify
+import subprocess
 
 
-path_html = "centaurus/encartes_concorrentes.html"
+app = Flask(__name__)
 
-SCRIPTS_FILES = {
-    "assai.py",
-    "atacadão.py",
-    "frangolandia.py",
-    "novoatacarejo.py",
-    "gbarbosa.py",
-    "cometa.py"
+
+LOJA_SCRIPT_MAP = {
+    "Assaí": "centaurus/back-end/models/date_paths/assai.py",
+    "Atacadão": "centaurus/back-end/models/date_paths/atacadão.py",
+    "Cometa Supermercados": "centaurus/back-end/models/date_paths/cometa.py",
+    "Frangolândia Supermercados": "centaurus/back-end/models/date_paths/frangolandia.py",
+    "Novo Atacarejo": "centaurus/back-end/models/date_paths/novoatacarejo.py",
+    "GBarbosa (Grupo Cencosud)": "centaurus/back-end/models/date_paths/gbarbosa.py"
 }
 
-def read_files():
-    set.add(SCRIPTS_FILES)
-    for i in SCRIPTS_FILES:
-        i(len(SCRIPTS_FILES))
-    set.add(i)
-    print(".")
-    
-    if i in SCRIPTS_FILES([0]):
-        print("Not possible to make the script")
-        
-def loja_capture():
-    
 
-def output_js_file():
-        
-    #Add js file to read and capture command in python scipts.
-    #Read element on HTML with JS FIle
-    #Add feature to capture if else paramenters of all stores
-    
+@app.route('/executar_script', methods=['POST'])
+def executar_script():
+    data = request.get_json()
+    loja = data.get('loja')
+    estado = data.get('estado')
+
+    script_path = LOJA_SCRIPT_MAP.get(loja)
+
+    if not script_path:
+        return jsonify({"message": f"Loja '{loja}' não mapeada para nenhum script."}), 400
+
+    try:
+        result = subprocess.run(
+            ["python", script_path, estado],
+            capture_output=True,
+            text=True
+        )
+
+        if result.returncode != 0:
+            return jsonify({"message": f"Erro ao executar o script: {result.stderr}"}), 500
+
+        return jsonify({"message": f"Script '{loja}' executado com sucesso para o estado '{estado}'."})
+    except Exception as e:
+        return jsonify({"message": f"Erro inesperado: {str(e)}"}), 500
+
+if __name__ == '__main__':
+    app.run(debug=True)
