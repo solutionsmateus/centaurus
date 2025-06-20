@@ -1,18 +1,13 @@
-function downloadReport() {
-    const loja = document.getElementById("loja-select").value
+const BACKEND_URL = "https://centursus-back-end-render.onrender.com"; 
 
-    fetch("/executarscript", {
-        method: "POST",
+async function executeScript(loja) {
+    const response = await fetch(`${BACKEND_URL}/executar_script`, {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ loja: loja })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert(data.message);
-    })
-    .catch(error => {
-        alert("Erro ao executar o script: " + error);
     });
+    const data = await response.json();
+    console.log(data.message);
 }
