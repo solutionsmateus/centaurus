@@ -20,7 +20,6 @@ LOJA_SCRIPT_MAP = {
 def executar_script():
     data = request.get_json()
     loja = data.get('loja')
-    estado = data.get('estado')
 
     script_path = LOJA_SCRIPT_MAP.get(loja)
 
@@ -29,7 +28,7 @@ def executar_script():
 
     try:
         result = subprocess.run(
-            ["python", script_path, estado],
+            ["python", script_path, loja],
             capture_output=True,
             text=True
         )
@@ -37,7 +36,7 @@ def executar_script():
         if result.returncode != 0:
             return jsonify({"message": f"Erro ao executar o script: {result.stderr}"}), 500
 
-        return jsonify({"message": f"Script '{loja}' executado com sucesso para o estado '{estado}'."})
+        return jsonify({"message": f"Script '{loja}' executado com sucesso para o loja '{loja}'."})
     except Exception as e:
         return jsonify({"message": f"Erro inesperado: {str(e)}"}), 500
 

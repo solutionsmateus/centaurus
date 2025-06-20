@@ -32,8 +32,8 @@ driver = webdriver.Chrome(options=options)
 wait = WebDriverWait(driver, 30)
 
 def main():
-    estado = sys.argv[1] if len(sys.argv) > 1 else None
-    print(f"Executando script para o estado: {estado}")
+    loja = sys.argv[1] if len(sys.argv) > 1 else None
+    print(f"Executando script para o estado: {loja}")
 
 
 def encontrar_data():
