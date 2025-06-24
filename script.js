@@ -12,7 +12,7 @@ async function executeScript(loja) {
 
     if (!response.ok) {
         console.error("Erro do backend:", data.message);
-        alert("Erro no servidor: " + data.message);
+        alert("Erro no servidor: " + data.message);s
         return;
     }
 
@@ -41,5 +41,28 @@ async function executeScript(loja) {
         alert("Arquivos estão prontos para download! Clique nos links.");
     } else {
         alert("Nenhum arquivo encontrado para download.");
+    }
+}
+
+async function ExecuteScript() {
+    const options = {
+        method: 'GET',
+        mode: 'cors',
+        headers: {
+            "content-type": "application/json;charset=utf-8"
+        }
+    };
+
+    try {
+        const response = await fetch(`${API_URL}/AbrirDashRadio`, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data); 
+        return data;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        
     }
 }
