@@ -1,50 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <body>
+     <meta charset="UTF-8">
   <title>Página de Download</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://ri.grupomateus.com.br/wp-content/themes/mziq_grupo_mateus/img/favicon/favicon32.png">
+  <body>
+  <img src="https://ri.grupomateus.com.br/wp-content/themes/mziq_grupo_mateus/img/logo.png" alt="Logo Grupo Mateus">
+  <h1>Abra seu Dash</h1>
+  <button id="AbrirDashRadio" type="button">Abrir</button>
+  <h2>Abrir relatorio</h2>
+  <a href="https://app.powerbi.com/onedrive/open?pbi_source=ODSPViewer&driveId=b!wK8NpxXAVkas5MJ2wmufqNyZ_EPT1oRMkgl5RMAdJEHfrbjHmDzCQL57Si9rsGU0&itemId=01HT4NWRRGXDJNIEX2TFA2QGSFGPT6L6QF" class="AbrirDashRadio" download>Abrir Dash</a>
+  </body>
   <style>
-    /* Estilos base (resumidos) */
-    body {
-      margin: 0;
-      font-family: 'Open Sans', Arial, sans-serif;
-      background: #fff;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-    header .logo img {
-      max-width: 200px;
-      height: auto;
-    }
-    .download-btn {
-      margin-top: 2rem;
-      background-color: #0693e3;
-      color: #fff;
-      padding: 1rem 2rem;
-      font-size: 1.25rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.2s;
-    }
-    .download-btn:hover {
-      background-color: #047acb;
-    }
+    #AbrirDashRadio {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 75px;
+    font-style: italic;
+}
+   #clique:hover {
+    background-color: #0056b3;
+    font-style: italic;
+}
   </style>
+  <script>
+      document.addEventListener('DOMContentLoaded', () => {
+      const AbrirDash = document.getElementById('AbrirDashRadio');
+      if (AbrirDash) {
+        AbrirDash.addEventListener('click', () => {
+      if (AbrirDash) {
+        ExecuteScript(AbrirDash);
+      } else {
+        alert("Script não executado");
+      }
+    });
+  }
+});
+  </script>
 </head>
-<body>
-  <header class="logo">
-    <img src="https://ri.grupomateus.com.br/wp-content/themes/mziq_grupo_mateus/img/logo.png" alt="Logo Grupo Mateus">
-  </header>
-
-  <a href="https://app.powerbi.com/onedrive/open?pbi_source=ODSPViewer&driveId=b!wK8NpxXAVkas5MJ2wmufqNyZ_EPT1oRMkgl5RMAdJEHfrbjHmDzCQL57Si9rsGU0&itemId=01HT4NWRRGXDJNIEX2TFA2QGSFGPT6L6QF" class="download-btn" download> Download</a>
-</body>
-</html>
