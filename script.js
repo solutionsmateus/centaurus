@@ -1,8 +1,11 @@
 const API_URL = "https://centursus-back-end-render.onrender.com";
+const FileUpload = document.getElementById("fileUpload")
+const BaixarButao = document.getElementById("BaixarButao")
+
 
 async function fileUpload(file) {
     const formData = new FormData();
-    formData.append('file', file); // use o parâmetro corretamente
+    formData.append('file', file);
 
     try {
         const response = await fetch(`${API_URL}/fileUpload`, {
