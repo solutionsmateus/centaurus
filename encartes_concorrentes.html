@@ -1,49 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encartes Concorrentes</title>
-    <link rel="stylesheet" src="Centaurus/static/style.css">
-    </head>
-<body>
-    <h1>Selecione a loja</h1>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encartes Concorrentes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #ffffff;
+    }
 
-    <label for="loja-select">Selecione a Loja:</label>
+    .logo {
+        display: block;
+        margin: 0 auto -20px auto; 
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    select, button {
+      margin: 10px 0;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    select {
+      background-color: #f0f0f0;
+    }
+
+    button {
+      background-color: #0096e6;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #007bb8;
+    }
+    input[type="file"] {
+      background-color: #eeeeee;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="static/mateus.logo.png" alt="Grupo Mateus" class="logo" width="200"/>
+
     <select id="loja-select">
-        <option value="">Selecione...</option>
-        <option value="Assaí">Assaí</option>
-        <option value="Atacadão">Atacadão</option>
-        <option value="Cometa Supermercados">Cometa Supermercados</option>
-        <option value="Frangolândia Supermercados">Frangolândia Supermercados</option>
-        <option value="Novo Atacarejo">Novo Atacarejo</option>
-        <option value="GBarbosa (Grupo Cencosud)">GBarbosa (Grupo Cencosud)</option>
+      <option value="">Selecione a Loja...</option>
+      <option value="Assaí">Assaí</option>
+      <option value="Atacadão">Atacadão</option>
+      <option value="Cometa Supermercados">Cometa Supermercados</option>
+      <option value="Frangolândia Supermercados">Frangolândia Supermercados</option>
+      <option value="Novo Atacarejo">Novo Atacarejo</option>
+      <option value="GBarbosa (Grupo Cencosud)">GBarbosa (Grupo Cencosud)</option>
+      <option value="Novo Atacarejo">Novo Atacarejo</option>
     </select>
 
-    <button id="BaixarButão" type="button">Baixar Encartes</button>
+    <input type="file" id="fileUpload" accept=".pdf,.jpg,.jpeg,.png,.xlsx"/>
     
-    <div id="download-links-container"></div>
+    <br>
 
-    <script src="script.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const baixarBotao = document.getElementById('BaixarButão');
-            const lojaSelect = document.getElementById('loja-select');
-
-            if (baixarBotao && lojaSelect) {
-                baixarBotao.addEventListener('click', () => {
-                    const selectedLoja = lojaSelect.value;
-                    if (selectedLoja) {
-                        executeScript(selectedLoja);
-                    } else {
-                        alert("Por favor, selecione uma loja primeiro.");
-                    }
-                });
-            } else {
-                console.error("Elementos HTML (botão ou seletor de loja) não encontrados. Verifique IDs.");
-            }
-        });
-    </script>
-</body>
-</html>
+    <button id="BaixarButao">Baixar Encartes</button>
+  </div>
